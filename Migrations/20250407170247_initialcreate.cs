@@ -15,6 +15,34 @@ namespace backend_boilerplate.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "tblproduct",
+                columns: table => new
+                {
+                    uuid = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    sku = table.Column<string>(type: "varchar(50)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    name = table.Column<string>(type: "varchar(200)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    description = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    price = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    stock = table.Column<int>(type: "int", nullable: false),
+                    category = table.Column<string>(type: "varchar(100)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    status = table.Column<string>(type: "varchar(20)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    is_deleted = table.Column<int>(type: "int(1)", nullable: false),
+                    deleted_at = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tblproduct", x => x.uuid);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "tbluserprofile",
                 columns: table => new
                 {
@@ -77,6 +105,12 @@ namespace backend_boilerplate.Migrations
                 column: "author_id");
 
             migrationBuilder.CreateIndex(
+                name: "SKU",
+                table: "tblproduct",
+                column: "sku",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "Email",
                 table: "tbluserprofile",
                 column: "email",
@@ -93,6 +127,9 @@ namespace backend_boilerplate.Migrations
         {
             migrationBuilder.DropTable(
                 name: "tblblogpost");
+
+            migrationBuilder.DropTable(
+                name: "tblproduct");
 
             migrationBuilder.DropTable(
                 name: "tbluserprofile");

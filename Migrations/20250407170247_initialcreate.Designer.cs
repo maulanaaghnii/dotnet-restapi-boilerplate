@@ -12,7 +12,7 @@ using UserProfileApi.Data;
 namespace backend_boilerplate.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250407145956_initialcreate")]
+    [Migration("20250407170247_initialcreate")]
     partial class initialcreate
     {
         /// <inheritdoc />
@@ -76,6 +76,68 @@ namespace backend_boilerplate.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("tblblogpost");
+                });
+
+            modelBuilder.Entity("UserProfileApi.Models.Product", b =>
+                {
+                    b.Property<Guid>("Uuid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)")
+                        .HasColumnName("uuid");
+
+                    b.Property<string>("Category")
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("category");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("deleted_at");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext")
+                        .HasColumnName("description");
+
+                    b.Property<int>("IsDeleted")
+                        .HasColumnType("int(1)")
+                        .HasColumnName("is_deleted");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)")
+                        .HasColumnName("name");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(10,2)")
+                        .HasColumnName("price");
+
+                    b.Property<string>("Sku")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("sku");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("status");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("int")
+                        .HasColumnName("stock");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Uuid");
+
+                    b.HasIndex(new[] { "Sku" }, "SKU")
+                        .IsUnique();
+
+                    b.ToTable("tblproduct");
                 });
 
             modelBuilder.Entity("UserProfileApi.Models.UserProfile", b =>
